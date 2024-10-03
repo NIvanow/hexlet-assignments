@@ -10,17 +10,29 @@ public class SingleTag extends Tag {
 
     public String toString() {
         if (!getTag().isEmpty()) {
-            var values = getTag().entrySet();
-            var str = "";
-            for (var value : values) {
-                str += value.getKey() + " " + value.getValue() + " ";
+        var values = getTag().entrySet();
+        var str = "";
+        for (var value : values) {
+            str += value.getKey() + " " + value.getValue() + " ";
+        }
+        var m = str.split(" ");
+        var result = "<" + getNameTag() + " ";
+        for (var i = 0; i < m.length; i++) {
+            result += m[i] ;
+            if (i % 2 == 0) {
+                result+= "=";
             }
-            var m = str.split(" ");
-            var result = "<" + getNameTag() + " " + m[0] + "=\"" + m[1] + "\" "
-                    + m[2] + "=\"" + m[3] + "\">";
-            return result;
+            if (i % 2 == 1 && (i+1)!=m.length) {
+                result += "\" ";
+            } else {
+                result+="\"";
+            }
+        }
+        result +=">";
+        return result;
+
         } else {
-            return "<" +getNameTag() + ">";
+            return "<" + getNameTag() + ">";
         }
     }
 }

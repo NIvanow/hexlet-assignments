@@ -23,19 +23,58 @@ public class PairedTag extends Tag {
     }
 
     public String toString() {
+        var result1= "";
+        var result2 = "";
+        var result = "";
         if (!getTag().isEmpty()) {
-            var values = getTag().entrySet();
-            var str = "";
-            for (var value : values) {
-                str += value.getKey() + " " + value.getValue() + " ";
+            var values1 = getTag().entrySet();
+            var str1 = "";
+            for (var value1 : values1) {
+                str1 += value1.getKey() + " " + value1.getValue() + " ";
             }
-            var m = str.split(" ");
-            var result = "<" + getNameTag() + " " + m[0] + "=\"" + m[1] + "\" "
-                    + m[2] + "=\"" + m[3] + ">";
-            return result;
+            var m = str1.split(" ");
+            result1 = "<" + getNameTag() + " ";
+            for (var i = 0; i < m.length; i++) {
+                result1 += m[i];
+                if (i % 2 == 0) {
+                    result1 += "=";
+                }
+                if (i % 2 == 1 && (i + 1) != m.length) {
+                    result1 += "\" ";
+                } else {
+                    result1 += "\"";
+                }
+            }
+            result1 += ">";
         } else {
-            return "<" +getNameTag() + ">";
+            result1 ="<" + getNameTag() + ">";
         }
+            for (var childTag : childrenTag) {
+                {
+                    var values2 = childTag.getTag().entrySet();
+                    var str2 = "";
+                    for (var value2 : values2) {
+                        str2 += value2.getKey() + " " + value2.getValue() + " ";
+                    }
+                    var n = str2.split(" ");
+                    result2 += "<" + childTag.getNameTag() + " ";
+                    for (var j = 0; j < n.length; j++) {
+                        result2 += n[j];
+                        if (j % 2 == 0) {
+                            result2 += "=";
+                        }
+                        if (j % 2 == 1 && (j + 1) != n.length) {
+                            result2 += "\" ";
+                        } else {
+                            result2 += "\"";
+                        }
+                    }
+                    result2 += ">";
+                }
+            }
+        result = result1 + getBodyTag() + result2 + "</" + getNameTag() + ">";
+        return result;
     }
+
 }
 // END
