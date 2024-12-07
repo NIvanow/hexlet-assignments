@@ -16,7 +16,7 @@ public final class App {
         });
 
         app.get("/phones", ctx -> ctx.json(phones));
-        app.get("/domains", ctx -> ctx.json( domains));
+        app.get("/domains", ctx -> ctx.json(domains));
         app.start(7070);
 
         return app;
